@@ -3,95 +3,99 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Produk Jasteb - Modern UI</title>
+  <title>Produk Jasteb Premium</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <style>
     * {
       box-sizing: border-box;
     }
     body {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #0f0f0f, #1a1a1a);
       color: #fff;
-      overflow-x: hidden;
     }
     header {
       text-align: center;
-      padding: 30px 20px;
-      font-size: 30px;
-      font-weight: bold;
-      backdrop-filter: blur(10px);
+      padding: 40px 20px 20px;
+      font-size: 32px;
+      font-weight: 800;
+      background: linear-gradient(90deg, #00d4ff, #0088ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
-
     .menu-scroll {
       display: flex;
       overflow-x: auto;
-      padding: 10px 20px;
+      padding: 10px 20px 20px;
       gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
       scrollbar-width: none;
     }
     .menu-scroll::-webkit-scrollbar {
       display: none;
     }
     .menu-btn {
-      flex-shrink: 0;
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: #1c1c1c;
+      border: 1px solid #2a2a2a;
       color: #fff;
       padding: 10px 20px;
       border-radius: 999px;
       font-size: 14px;
       cursor: pointer;
       transition: 0.3s;
-      backdrop-filter: blur(8px);
     }
     .menu-btn:hover,
     .menu-btn.active {
       background: #00d4ff;
       color: #000;
-      font-weight: bold;
-      box-shadow: 0 0 10px #00d4ff;
+      font-weight: 600;
+      box-shadow: 0 0 12px #00d4ff;
     }
-
     .products {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 20px;
-      padding: 30px;
-      animation: fadeIn 0.5s ease-in-out;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      padding: 40px 30px;
+      max-width: 1300px;
+      margin: auto;
     }
-
     .product-card {
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 16px;
+      border-radius: 20px;
       padding: 20px;
       backdrop-filter: blur(10px);
-      box-shadow: 0 0 10px rgba(0, 212, 255, 0.1);
-      transition: transform 0.2s ease, box-shadow 0.3s;
+      box-shadow: 0 0 20px rgba(0, 212, 255, 0.08);
+      transition: all 0.3s ease;
+      position: relative;
     }
     .product-card:hover {
-      transform: scale(1.03);
-      box-shadow: 0 0 20px #00d4ff;
+      transform: translateY(-5px);
+      box-shadow: 0 0 25px #00d4ff;
     }
     .product-title {
       font-size: 18px;
-      font-weight: bold;
-      margin-bottom: 8px;
+      font-weight: 700;
+      margin-bottom: 6px;
     }
     .product-price {
       font-size: 20px;
       color: #00d4ff;
-      margin-bottom: 8px;
+      font-weight: 600;
+      margin-bottom: 10px;
     }
     .product-desc {
       font-size: 14px;
-      color: #ccc;
-      margin-bottom: 16px;
+      color: #bbb;
+      margin-bottom: 18px;
+      min-height: 50px;
     }
     .buy-btn {
       width: 100%;
-      padding: 10px;
+      padding: 12px;
       background: #00d4ff;
       border: none;
       border-radius: 25px;
@@ -99,30 +103,29 @@
       color: #000;
       cursor: pointer;
       transition: 0.3s;
+      font-size: 14px;
     }
     .buy-btn:hover {
       background: #00b4cc;
       box-shadow: 0 0 10px #00d4ff;
     }
 
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(10px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
+    @media (max-width: 600px) {
+      header {
+        font-size: 24px;
       }
     }
   </style>
 </head>
 <body>
-  <header>Daftar Produk Jasteb</header>
+  <header>Produk Jasteb - Tampil Futuristik</header>
   <div class="menu-scroll" id="menuNav"></div>
   <div class="products" id="productContainer"></div>
 
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
+    AOS.init();
+
     const produkKategori = {
       "Jasteb": [
         { title: "Jasteb Biasa", price: "Rp10.000", desc: "Jasa tebak reguler cepat dan terpercaya." },
@@ -183,7 +186,7 @@
       produkKategori[kategori].forEach(p => {
         const pesan = encodeURIComponent(`Halo, saya tertarik beli *${p.title}* seharga ${p.price}`);
         productContainer.innerHTML += `
-          <div class="product-card">
+          <div class="product-card" data-aos="fade-up">
             <div class="product-title">${p.title}</div>
             <div class="product-price">${p.price}</div>
             <div class="product-desc">${p.desc}</div>
