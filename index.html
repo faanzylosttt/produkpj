@@ -3,26 +3,30 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Produk Jasteb - UI Modern</title>
+  <title>Produk Jasteb - Modern UI</title>
   <style>
+    * {
+      box-sizing: border-box;
+    }
     body {
       margin: 0;
       font-family: 'Segoe UI', sans-serif;
-      background: #0f1117;
-      color: #f0f0f0;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: #fff;
+      overflow-x: hidden;
     }
     header {
       text-align: center;
-      padding: 24px;
-      background-color: #121212;
-      font-size: 28px;
+      padding: 30px 20px;
+      font-size: 30px;
       font-weight: bold;
+      backdrop-filter: blur(10px);
     }
+
     .menu-scroll {
       display: flex;
       overflow-x: auto;
       padding: 10px 20px;
-      background: #1a1c23;
       gap: 12px;
       scrollbar-width: none;
     }
@@ -31,36 +35,44 @@
     }
     .menu-btn {
       flex-shrink: 0;
-      background: #2c2f3a;
-      border: 1px solid #444;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
       color: #fff;
       padding: 10px 20px;
-      border-radius: 50px;
+      border-radius: 999px;
       font-size: 14px;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: 0.3s;
+      backdrop-filter: blur(8px);
     }
     .menu-btn:hover,
     .menu-btn.active {
       background: #00d4ff;
       color: #000;
       font-weight: bold;
+      box-shadow: 0 0 10px #00d4ff;
     }
+
     .products {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
       gap: 20px;
       padding: 30px;
+      animation: fadeIn 0.5s ease-in-out;
     }
+
     .product-card {
-      background: #1c1f26;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
       border-radius: 16px;
       padding: 20px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-      transition: transform 0.2s ease;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 10px rgba(0, 212, 255, 0.1);
+      transition: transform 0.2s ease, box-shadow 0.3s;
     }
     .product-card:hover {
-      transform: scale(1.02);
+      transform: scale(1.03);
+      box-shadow: 0 0 20px #00d4ff;
     }
     .product-title {
       font-size: 18px;
@@ -86,6 +98,22 @@
       font-weight: bold;
       color: #000;
       cursor: pointer;
+      transition: 0.3s;
+    }
+    .buy-btn:hover {
+      background: #00b4cc;
+      box-shadow: 0 0 10px #00d4ff;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
   </style>
 </head>
@@ -153,12 +181,15 @@
     function showProduk(kategori, clickedBtn) {
       productContainer.innerHTML = "";
       produkKategori[kategori].forEach(p => {
+        const pesan = encodeURIComponent(`Halo, saya tertarik beli *${p.title}* seharga ${p.price}`);
         productContainer.innerHTML += `
           <div class="product-card">
             <div class="product-title">${p.title}</div>
             <div class="product-price">${p.price}</div>
             <div class="product-desc">${p.desc}</div>
-            <button class="buy-btn">Beli Sekarang</button>
+            <a href="https://wa.me/6281234567890?text=${pesan}" target="_blank">
+              <button class="buy-btn">Beli Sekarang</button>
+            </a>
           </div>
         `;
       });
