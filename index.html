@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Produk Jasteb Premium</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <style>
     * {
       box-sizing: border-box;
@@ -18,7 +17,7 @@
     }
     header {
       text-align: center;
-      padding: 40px 20px 20px;
+      padding: 30px 20px 10px;
       font-size: 32px;
       font-weight: 800;
       background: linear-gradient(90deg, #00d4ff, #0088ff);
@@ -29,7 +28,7 @@
       display: flex;
       overflow-x: auto;
       padding: 10px 20px 20px;
-      gap: 12px;
+      gap: 10px;
       justify-content: center;
       flex-wrap: wrap;
       scrollbar-width: none;
@@ -41,7 +40,7 @@
       background: #1c1c1c;
       border: 1px solid #2a2a2a;
       color: #fff;
-      padding: 10px 20px;
+      padding: 10px 18px;
       border-radius: 999px;
       font-size: 14px;
       cursor: pointer;
@@ -56,76 +55,114 @@
     }
     .products {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 24px;
-      padding: 40px 30px;
-      max-width: 1300px;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      padding: 30px 25px;
+      max-width: 1200px;
       margin: auto;
     }
     .product-card {
       background: rgba(255, 255, 255, 0.05);
       border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 20px;
+      border-radius: 16px;
       padding: 20px;
-      backdrop-filter: blur(10px);
-      box-shadow: 0 0 20px rgba(0, 212, 255, 0.08);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 0 20px rgba(0, 212, 255, 0.05);
       transition: all 0.3s ease;
-      position: relative;
+      cursor: pointer;
     }
     .product-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 0 25px #00d4ff;
+      transform: translateY(-4px);
+      box-shadow: 0 0 20px #00d4ff;
     }
     .product-title {
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 700;
-      margin-bottom: 6px;
     }
     .product-price {
-      font-size: 20px;
+      font-size: 18px;
       color: #00d4ff;
       font-weight: 600;
-      margin-bottom: 10px;
-    }
-    .product-desc {
-      font-size: 14px;
-      color: #bbb;
-      margin-bottom: 18px;
-      min-height: 50px;
-    }
-    .buy-btn {
-      width: 100%;
-      padding: 12px;
-      background: #00d4ff;
-      border: none;
-      border-radius: 25px;
-      font-weight: bold;
-      color: #000;
-      cursor: pointer;
-      transition: 0.3s;
-      font-size: 14px;
-    }
-    .buy-btn:hover {
-      background: #00b4cc;
-      box-shadow: 0 0 10px #00d4ff;
+      margin-top: 6px;
     }
 
-    @media (max-width: 600px) {
-      header {
-        font-size: 24px;
-      }
+    /* Modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.7);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+    .modal {
+      background: #1a1a1a;
+      padding: 30px;
+      border-radius: 12px;
+      max-width: 400px;
+      width: 90%;
+      box-shadow: 0 0 20px #00d4ff;
+      animation: fadeIn 0.3s ease;
+      position: relative;
+    }
+    .modal h2 {
+      margin-top: 0;
+      color: #00d4ff;
+    }
+    .modal p {
+      font-size: 14px;
+      color: #ccc;
+      margin-bottom: 20px;
+    }
+    .modal a {
+      display: block;
+      background: #00d4ff;
+      padding: 10px;
+      text-align: center;
+      border-radius: 25px;
+      text-decoration: none;
+      color: #000;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+    .modal a:hover {
+      background: #00aacc;
+    }
+    .close-btn {
+      position: absolute;
+      top: 8px;
+      right: 12px;
+      font-size: 22px;
+      color: #aaa;
+      cursor: pointer;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
     }
   </style>
 </head>
 <body>
-  <header>Produk Jasteb - Tampil Futuristik</header>
+  <header>Produk Jasteb - Modern & Interaktif</header>
   <div class="menu-scroll" id="menuNav"></div>
   <div class="products" id="productContainer"></div>
 
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  <script>
-    AOS.init();
+  <!-- Modal -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal" id="modalContent">
+      <span class="close-btn" onclick="closeModal()">&times;</span>
+      <h2 id="modalTitle">Judul</h2>
+      <div class="product-price" id="modalPrice">Harga</div>
+      <p id="modalDesc">Deskripsi lengkap akan muncul di sini.</p>
+      <a href="#" target="_blank" id="modalBtn">Beli Sekarang</a>
+    </div>
+  </div>
 
+  <script>
     const produkKategori = {
       "Jasteb": [
         { title: "Jasteb Biasa", price: "Rp10.000", desc: "Jasa tebak reguler cepat dan terpercaya." },
@@ -184,21 +221,31 @@
     function showProduk(kategori, clickedBtn) {
       productContainer.innerHTML = "";
       produkKategori[kategori].forEach(p => {
-        const pesan = encodeURIComponent(`Halo, saya tertarik beli *${p.title}* seharga ${p.price}`);
-        productContainer.innerHTML += `
-          <div class="product-card" data-aos="fade-up">
-            <div class="product-title">${p.title}</div>
-            <div class="product-price">${p.price}</div>
-            <div class="product-desc">${p.desc}</div>
-            <a href="https://wa.me/6281234567890?text=${pesan}" target="_blank">
-              <button class="buy-btn">Beli Sekarang</button>
-            </a>
-          </div>
+        const card = document.createElement("div");
+        card.className = "product-card";
+        card.innerHTML = `
+          <div class="product-title">${p.title}</div>
+          <div class="product-price">${p.price}</div>
         `;
+        card.onclick = () => openModal(p);
+        productContainer.appendChild(card);
       });
 
       document.querySelectorAll(".menu-btn").forEach(btn => btn.classList.remove("active"));
       clickedBtn.classList.add("active");
+    }
+
+    function openModal(product) {
+      document.getElementById("modalTitle").innerText = product.title;
+      document.getElementById("modalPrice").innerText = product.price;
+      document.getElementById("modalDesc").innerText = product.desc;
+      const pesan = encodeURIComponent(`Halo, saya tertarik beli *${product.title}* seharga ${product.price}`);
+      document.getElementById("modalBtn").href = `https://wa.me/6281234567890?text=${pesan}`;
+      document.getElementById("modalOverlay").style.display = "flex";
+    }
+
+    function closeModal() {
+      document.getElementById("modalOverlay").style.display = "none";
     }
 
     window.onload = () => {
